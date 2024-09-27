@@ -3,24 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Click and Drag Cubes</title>
+    <title>Drag and Drop Cubes</title>
     <style>
-        .cube {
+        #container {
+            display: flex;
+            flex-wrap: wrap;
+            width: 300px;
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+        .item {
             width: 50px;
             height: 50px;
             background-color: lightblue;
             margin: 5px;
-            display: inline-block;
-            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: grab;
         }
     </style>
 </head>
 <body>
-    <div id="container">
-        <div class="cube" draggable="true"></div>
-        <div class="cube" draggable="true"></div>
-        <div class="cube" draggable="true"></div>
-        <div class="cube" draggable="true"></div>
+    <div id="container" class="items">
+        <div class="item" draggable="true">1</div>
+        <div class="item" draggable="true">2</div>
+        <div class="item" draggable="true">3</div>
+        <div class="item" draggable="true">4</div>
     </div>
 
     <script src="script.js"></script>
