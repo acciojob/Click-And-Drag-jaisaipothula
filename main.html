@@ -3,36 +3,89 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Drag and Drop Example</title>
+    <title>Click and Drag Cubes</title>
     <style>
-        #container {
+        body {
             display: flex;
-            flex-wrap: wrap;
-            width: 300px;
-            border: 1px solid #ccc;
-            padding: 10px;
-            overflow-x: auto; /* Allow horizontal scrolling */
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
         }
-        .item {
+        .container {
+            display: flex;
+            cursor: pointer;
+        }
+        .cube {
             width: 50px;
             height: 50px;
-            background-color: lightblue;
             margin: 5px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: grab;
+            background-color: #3498db;
+            transition: background-color 0.2s;
+        }
+        .active {
+            background-color: #2ecc71;
         }
     </style>
 </head>
 <body>
-    <div id="container" class="items">
-        <div class="item" draggable="true">1</div>
-        <div class="item" draggable="true">2</div>
-        <div class="item" draggable="true">3</div>
-        <div class="item" draggable="true">4</div>
+    <div class="container">
+        <div class="cube"></div>
+        <div class="cube"></div>
+        <div class="cube"></div>
+        <div class="cube"></div>
+        <div class="cube"></div>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        let isDragging = false;
+
+        const cubes = document.querySelectorAll('.cube');
+
+        // Function to activate/deactivate cubes
+        function toggleCube(cube) {
+            cube.classList.toggle('active');
+        }
+
+        // Mouse down event
+        document.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            toggleCube(e.target.closest('.cube'));
+        });
+
+        // Mouse up event
+        document.addEventListener('mouseup', () => {
+            isDragging = false;
+        });
+
+        // Mouse move event
+        document.addEventListener('mousemove', (e) => {
+            if (isDragging) {
+                const cube = e.target.closest('.cube');
+                if (cube) {
+                    toggleCube(cube);
+                }
+            }
+        });
+
+        // Touch support for mobile devices
+        document.addEventListener('touchstart', (e) => {
+            isDragging = true;
+            toggleCube(e.target.closest('.cube'));
+        });
+
+        document.addEventListener('touchend', () => {
+            isDragging = false;
+        });
+
+        document.addEventListener('touchmove', (e) => {
+            if (isDragging) {
+                const cube = e.target.closest('.cube');
+                if (cube) {
+                    toggleCube(cube);
+                }
+            }
+        });
+    </script>
 </body>
 </html>
