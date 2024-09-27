@@ -3,89 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Click and Drag Cubes</title>
+    <title>To-Do App</title>
     <style>
-        body {
+        .items {
             display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f0f0f0;
+            overflow-x: auto;
+            width: 300px; /* Example width */
         }
-        .container {
-            display: flex;
-            cursor: pointer;
-        }
-        .cube {
-            width: 50px;
-            height: 50px;
-            margin: 5px;
+        .item {
+            width: 100px;
+            height: 100px;
+            margin-right: 10px;
             background-color: #3498db;
-            transition: background-color 0.2s;
-        }
-        .active {
-            background-color: #2ecc71;
+            cursor: grab;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="cube"></div>
-        <div class="cube"></div>
-        <div class="cube"></div>
-        <div class="cube"></div>
-        <div class="cube"></div>
+    <div class="items">
+        <div class="item">Task 1</div>
+        <div class="item">Task 2</div>
+        <div class="item">Task 3</div>
+        <div class="item">Task 4</div>
     </div>
 
     <script>
-        let isDragging = false;
-
-        const cubes = document.querySelectorAll('.cube');
-
-        // Function to activate/deactivate cubes
-        function toggleCube(cube) {
-            cube.classList.toggle('active');
-        }
-
-        // Mouse down event
-        document.addEventListener('mousedown', (e) => {
-            isDragging = true;
-            toggleCube(e.target.closest('.cube'));
-        });
-
-        // Mouse up event
-        document.addEventListener('mouseup', () => {
-            isDragging = false;
-        });
-
-        // Mouse move event
-        document.addEventListener('mousemove', (e) => {
-            if (isDragging) {
-                const cube = e.target.closest('.cube');
-                if (cube) {
-                    toggleCube(cube);
-                }
-            }
-        });
-
-        // Touch support for mobile devices
-        document.addEventListener('touchstart', (e) => {
-            isDragging = true;
-            toggleCube(e.target.closest('.cube'));
-        });
-
-        document.addEventListener('touchend', () => {
-            isDragging = false;
-        });
-
-        document.addEventListener('touchmove', (e) => {
-            if (isDragging) {
-                const cube = e.target.closest('.cube');
-                if (cube) {
-                    toggleCube(cube);
-                }
-            }
-        });
+        // Add drag-and-drop functionality here if needed
     </script>
 </body>
 </html>
