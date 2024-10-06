@@ -1,33 +1,37 @@
-const itemsContainer = document.getElementById('items');
+// script.js
+
 let isDragging = false;
-let startX;
-let scrollLeft;
 
-// Mouse down event: starts the dragging process
-itemsContainer.addEventListener('mousedown', (e) => {
-    isDragging = true; // Set dragging state to true
-    startX = e.pageX - itemsContainer.offsetLeft; // Get the starting mouse position
-    scrollLeft = itemsContainer.scrollLeft; // Store the current scroll position
-    itemsContainer.style.cursor = 'grabbing'; // Change cursor to grabbing
+const cubes = document.querySelectorAll('.cube');
+
+cubes.forEach(cube => {
+    cube.addEventListener('mousedown', (event) => {
+        isDragging = true;
+        cube.classList.add('active'); // Highlight the clicked cube
+        event.preventDefault(); // Prevent text selection
+    });
+
+    cube.addEventListener('mouseover', (event) => {
+        if (isDragging) {
+            cube.classList.add('active'); // Highlight the hovered cube
+        }
+    });
+
+    cube.addEventListener('mouseup', () => {
+        isDragging = false; // Stop dragging on mouseup
+    });
 });
 
-// Mouse leave event: stops dragging if the mouse leaves the container
-itemsContainer.addEventListener('mouseleave', () => {
-    isDragging = false; // Set dragging state to false
-    itemsContainer.style.cursor = 'grab'; // Reset cursor style
+// Stop dragging when the mouse leaves the container
+document.addEventListener('mouseup', () => {
+    isDragging = false;
 });
 
-// Mouse up event: stops dragging when the mouse button is released
-itemsContainer.addEventListener('mouseup', () => {
-    isDragging = false; // Set dragging state to false
-    itemsContainer.style.cursor = 'grab'; // Reset cursor style
-});
-
-// Mouse move event: handles the dragging action
-itemsContainer.addEventListener('mousemove', (e) => {
-    if (!isDragging) return; // Stop if not dragging
-    e.preventDefault(); // Prevent default behavior
-    const x = e.pageX - itemsContainer.offsetLeft; // Get current mouse position
-    const walk = (x - startX) * 2; // Calculate how far to scroll
-    itemsContainer.scrollLeft = scrollLeft - walk; // Update scroll position
+// Optional: Remove highlight when dragging stops
+document.addEventListener('mousemove', () => {
+    if (!isDragging) {
+        cubes.forEach(cube => {
+            cube.classList.remove('active'); // Remove active class from all cubes
+        });
+    }
 });
